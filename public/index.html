@@ -6,4 +6,16 @@
   <body>
     <h3>This is the first App </h3>
   </body>
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    var socket = io(); //This io() is present in the /socket.io/socket.io.js and used to open websocket connection for communication between client and server
+
+    socket.on('connect',() => {       //This is to do the stuff when event occur in client side ... (notice here event is connect rather than connection in server.js)
+      console.log('Connected to server!');
+    });
+
+    socket.on('disconnect',() => {    // this is for the disconnect event to happen from the serevr this event listener will get caleed in the client side...
+      console.log('disconnected from the server');
+    });
+  </script>
 </html>
