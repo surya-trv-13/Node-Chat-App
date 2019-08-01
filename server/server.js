@@ -17,6 +17,20 @@ io.on('connection',(socket) => {            // This is a built in event listner 
     createdAt : 123
   });
 
+  socket.emit('newMessage',{
+    text : 'Not so far',
+    createdAt : 123,
+    from : 'SuryaTRV'
+  });
+
+  socket.on('createEmail',(newMail) => {
+    console.log('Email is ',newMail);
+  });
+
+  socket.on('createMessage',(newMessage) => {
+    console.log('Message to',newMessage.to,'is',newMessage.text);
+  });
+
   socket.on('disconnect',() => {
     console.log('Disconnected User'); // To print the message/or any stuff to execute in the server side after a disconnetion happens in the connection of a user...
   })
