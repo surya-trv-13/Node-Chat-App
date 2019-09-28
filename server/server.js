@@ -13,15 +13,21 @@ io.on('connection',(socket) => {            // This is a built in event listner 
   console.log('New User Connected');
 
 
-  socket.emit('newMessage',{    //This is the custom emit an event from server and send it to the client...
-    text : 'Not so far',         // This isthe data which we pass along with the event
-    createdAt : 123,
-    from : 'SuryaTRV'
-  });
+  // socket.emit('newMessage',{    //This is the custom emit an event from server and send it to the client...
+  //   text : 'Not so far',         // This isthe data which we pass along with the event
+  //   createdAt : 123,
+  //   from : 'SuryaTRV'
+  // });
 
 
-  socket.on('createMessage',(newMessage) => {   // This is to recieve the message from the client ...
-    console.log('Message to',newMessage.to,'is',newMessage.text);
+  socket.on('createMessage',(message) => {   // This is to recieve the message from the client ...
+    console.log('Message to',message.to,'is',message.text);
+
+    io.emit('newMessage',{
+      from : message.from,
+      text : message.text,
+      createdAt : new Date().getTime()
+    });
   });
 
   socket.on('disconnect',() => {
