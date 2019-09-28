@@ -18,6 +18,17 @@ io.on('connection',(socket) => {            // This is a built in event listner 
   //   createdAt : 123,
   //   from : 'SuryaTRV'
   // });
+  /**************************************************************************/
+  //This is for the welcome message to the user...
+  socket.emit('newMessage',{
+    from: 'ADMIN',
+    text : 'Welcome to the Chat Room'
+  });
+  //This is for the notifiction to other user of joining of other member in the group
+  socket.broadcast.emit('newMessage',{
+    from : 'ADMIN',
+    text : 'New User joined'
+  })
 
 
   socket.on('createMessage',(message) => {   // This is to recieve the message from the client ...
