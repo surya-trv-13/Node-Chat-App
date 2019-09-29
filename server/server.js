@@ -3,6 +3,7 @@ const socketIO = require('socket.io'); // This is for sending message from clien
 const http = require('http'); //This is to create http server
 const express = require('express');
 
+const {generateMessage} = require('./utils/message');
 const pathPublic = path.join(__dirname , '../public'); // This will reduce the file path of ../ with the original path...
 const port = process.env.PORT || 1200;
 const app = express();
@@ -20,33 +21,18 @@ io.on('connection',(socket) => {            // This is a built in event listner 
   // });
   /**************************************************************************/
   //This is for the welcome message to the user...
-  socket.emit('newMessage',{
-    from: 'ADMIN',
-    text : 'Welcome to the Chat Room'
-  });
+  socket.emit('newMessage',generateMessage('ADMIN','Welcome to Chat App'));
   //This is for the notifiction to other user of joining of other member in the group
-  socket.broadcast.emit('newMessage',{
-    from : 'ADMIN',
-    text : 'New User joined'
-  })
+  socket.broadcast.emit('newMessage',generateMessage('ADMIN','New User Joined'));
 
 
   socket.on('createMessage',(message) => {   // This is to recieve the message from the client ...
-    console.log('Message to',message.to,'is',message.text);
-
-    io.emit('newMessage',{
-      from : message.from,
-      text : message.text,
-      createdAt : new Date().getTime()
-    });
+    io.emit('newMessage',generateMessage(message.from,message.text));
   });
 
   socket.on('disconnect',() => {
     console.log('Disconnected User'); // To print the message/or any stuff to execute in the server side after a disconnetion happens in the connection of a user...
-  })
-
-
-
+  });
 });
 
 
