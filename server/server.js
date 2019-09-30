@@ -22,13 +22,17 @@ io.on('connection',(socket) => {            // This is a built in event listner 
   /**************************************************************************/
   //This is for the welcome message to the user...
   socket.emit('newMessage',generateMessage('ADMIN','Welcome to Chat App'));
+
   //This is for the notifiction to other user of joining of other member in the group
   socket.broadcast.emit('newMessage',generateMessage('ADMIN','New User Joined'));
 
 
-  socket.on('createMessage',(message) => {   // This is to recieve the message from the client ...
+  socket.on('createMessage',(message,callback) => {   // This is to recieve the message from the client ...//the callback argument is the function called in the socket.emit in the index.js
     io.emit('newMessage',generateMessage(message.from,message.text));
+
+    callback('From the ADMIN'); //Here the callback function get called for which it got the message
   });
+
 
   socket.on('disconnect',() => {
     console.log('Disconnected User'); // To print the message/or any stuff to execute in the server side after a disconnetion happens in the connection of a user...

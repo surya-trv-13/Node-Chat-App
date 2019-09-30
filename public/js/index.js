@@ -15,4 +15,28 @@ socket.on('disconnect',function()  {    // this is for the disconnect event to h
 
 socket.on('newMessage',function(newM) { // This is for listening event emitted from the server in the client side
   console.log('Message is ',newM);     // here ES6 features doesn't work so do basic syntax
+
+  var li = jQuery('<li></li>');
+  li.text(`${newM.from}:${newM.text}`);
+
+  jQuery('#message').append(li);
+});
+
+socket.emit('createMessage',{
+  from : 'Surya',
+  text : 'Hii'
+},function(data){                       //<--This function is used as acknowledgement to the user if the data sent to the server is valid or any kind of validation the programmer want to convey to the client in the frontend...
+  console.log('SEEN',data);
+});
+
+
+jQuery('#message-form').on('submit',function(e){
+  e.preventDefault();
+
+  socket.emit('createMessage',{
+    from : 'User',
+    text : jQuery('[name=message]').val()
+    },function(data){
+
+    });
 });
