@@ -22,12 +22,13 @@ socket.on('newMessage',function(newM) { // This is for listening event emitted f
   jQuery('#message').append(li);
 });
 
-socket.emit('createMessage',{
-  from : 'Surya',
-  text : 'Hii'
-},function(data){                       //<--This function is used as acknowledgement to the user if the data sent to the server is valid or any kind of validation the programmer want to convey to the client in the frontend...
-  console.log('SEEN',data);
-});
+/*-------------------Sending acknowledgement------------*/
+// socket.emit('createMessage',{
+//   from : 'Surya',
+//   text : 'Hii'
+// },function(data){                       //<--This function is used as acknowledgement to the user if the data sent to the server is valid or any kind of validation the programmer want to convey to the client in the frontend...
+//   console.log('SEEN',data);
+// });
 
 
 jQuery('#message-form').on('submit',function(e){
@@ -39,4 +40,20 @@ jQuery('#message-form').on('submit',function(e){
     },function(data){
 
     });
+});
+
+var locationButton = jQuery('#locationButton');
+locationButton.on('click',function(){
+  if(!navigator.geolocation){
+    return alert('Location can\'t fetched from the browser');
+  }
+
+  navigator.geolocation.getCurrentPosition(function(position){
+    socket.emit('geolocation',{
+      latitude : position.coords.latitude,
+      longitude : position.coords.longitude
+    });
+  },function(){
+    alert('Location is disabled for this webSite!')
+  });
 });

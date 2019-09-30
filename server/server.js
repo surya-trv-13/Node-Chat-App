@@ -33,6 +33,9 @@ io.on('connection',(socket) => {            // This is a built in event listner 
     callback('From the ADMIN'); //Here the callback function get called for which it got the message
   });
 
+  socket.on('geolocation',(coords) => {
+    io.emit('newMessage',generateMessage('Admin',`${coords.latitude},${coords.longitude}`));
+  });
 
   socket.on('disconnect',() => {
     console.log('Disconnected User'); // To print the message/or any stuff to execute in the server side after a disconnetion happens in the connection of a user...
