@@ -22,6 +22,16 @@ socket.on('newMessage',function(newM) { // This is for listening event emitted f
   jQuery('#message').append(li);
 });
 
+socket.on('newLocationMessage',function(newLocationM) {
+  var li = jQuery('<li></li>');
+  var a = jQuery('<a target="_blank">My Current Location</a>');
+
+  a.attr('href',newLocationM.url);
+  li.text(`${newLocationM.from}: `);
+  li.append(a);
+  jQuery('#message').append(li);
+});
+
 /*-------------------Sending acknowledgement------------*/
 // socket.emit('createMessage',{
 //   from : 'Surya',

@@ -3,7 +3,7 @@ const socketIO = require('socket.io'); // This is for sending message from clien
 const http = require('http'); //This is to create http server
 const express = require('express');
 
-const {generateMessage} = require('./utils/message');
+const {generateMessage,generateLocationMessage} = require('./utils/message');
 const pathPublic = path.join(__dirname , '../public'); // This will reduce the file path of ../ with the original path...
 const port = process.env.PORT || 1200;
 const app = express();
@@ -34,7 +34,7 @@ io.on('connection',(socket) => {            // This is a built in event listner 
   });
 
   socket.on('geolocation',(coords) => {
-    io.emit('newMessage',generateMessage('Admin',`${coords.latitude},${coords.longitude}`));
+    io.emit('newLocationMessage',generateLocationMessage('Admin',coords.latitude,coords.longitude));
   });
 
   socket.on('disconnect',() => {
