@@ -7,7 +7,8 @@ button,button:hover{
 	list-style-type:none;
 }
 *{
-	box-sizing:border-box;margin:0;
+	box-sizing:border-box;
+	margin:0;
 	padding:0;
 	font-family:"HelveticaNeue-Light","Helvetica Neue Light","Helvetica Neue",Helvetica,Arial,"Lucida Grande",sans-serif;
 	font-weight:300;
@@ -72,7 +73,7 @@ button:disabled{
 }
 .chat__sidebar{
 	overflow-y:scroll;
-	width:260px;
+	width:30%;
 	height:100vh;
   background-color: cadetblue;
   background-position: left;
@@ -105,7 +106,7 @@ button:disabled{
 }
 .chat__messages{
 	flex-grow:1;
-	overflow-y:scroll;
+	/* overflow-y:scroll; */
 	-webkit-overflow-scrolling:touch;
 	padding:10px
 }
@@ -140,5 +141,9 @@ button:disabled{
 	color:#999
 }
 @media (max-width:600px){
-	*{font-size:1rem}.chat__sidebar{display:none}.chat__footer{flex-direction:column}.chat__footer form{margin-bottom:10px}.chat__footer button{margin-right:0}
+	*{font-size:1rem}
+	.chat__sidebar{display:none}
+	.chat__footer{flex-direction:column}
+	.chat__footer form{margin-bottom:10px}
+	.chat__footer button{margin-right:0}
 }
