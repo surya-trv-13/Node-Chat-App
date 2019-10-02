@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="user-scalable=no,width=device-width,initial-scale=1">
+    <link rel="stylesheet" href="/css/style.css"></link>
+    <title>Chat | TRV-13 Web-Chat</title>
+  </head>
+  <body class="chat">
+
+    <div class="chat__sidebar">
+      <h3>People</h3>
+      <div class="user"></div>
+    </div>
+
+    <div class="chat__main">
+      <ol id="messages" class="chat__messages"></ol>
+
+      <div class="chat__footer">
+        <form id='message-form'>
+          <input type="text" name="message" placeholder="Write Message Here" autofocus autocomplete="off"/>
+          <button>SEND</button>
+        </form>
+        <button id="locationButton">Send Location</button>
+      </div>
+    </div>
+
+    <script id="message-text" type="text/template">
+      <li class="message">
+        <div class="message__title">
+          <h4>{{from}}</h4>
+          <span>{{createdAt}}</span>
+        </div>
+        <div class="message__body">
+          <p>{{text}}</p>
+        </div>
+      </li>
+    </script>
+
+    <script id="message-location-text" type="text/template">
+      <li class="message">
+        <div class="message__title">
+          <h4>{{from}}</h4>
+          <span>{{createdAt}}</span>
+        </div>
+        <div class="message__body">
+          <a href="{{url}}" target="_blank">My Location</a>
+        </div>
+      </li>
+    </script>
+
+    <script src="/js/libs/jquery-3.4.1.min.js"></script>
+    <script src="/js/libs/moment.js"></script>
+    <script src="/js/libs/mustache.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/chat.js"></script>
+  </body>
+</html>
