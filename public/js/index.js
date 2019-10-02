@@ -15,9 +15,9 @@ socket.on('disconnect',function()  {    // this is for the disconnect event to h
 
 socket.on('newMessage',function(newM) { // This is for listening event emitted from the server in the client side
   console.log('Message is ',newM);     // here ES6 features doesn't work so do basic syntax
-
+  var formatedTime = moment(newM.createdAt).format('h:mm a');
   var li = jQuery('<li></li>');
-  li.text(`${newM.from}:${newM.text}`);
+  li.text(`${newM.from} ${formatedTime}:${newM.text}`);
 
   jQuery('#message').append(li);
 });
@@ -25,9 +25,9 @@ socket.on('newMessage',function(newM) { // This is for listening event emitted f
 socket.on('newLocationMessage',function(newLocationM) {
   var li = jQuery('<li></li>');
   var a = jQuery('<a target="_blank">My Current Location</a>');
-
+  var formatedTime = moment(newLocationM).format('h:mm a');
   a.attr('href',newLocationM.url);
-  li.text(`${newLocationM.from}: `);
+  li.text(`${newLocationM.from} ${formatedTime}: `);
   li.append(a);
   jQuery('#message').append(li);
 });
