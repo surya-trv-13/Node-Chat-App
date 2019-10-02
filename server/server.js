@@ -30,7 +30,7 @@ io.on('connection',(socket) => {            // This is a built in event listner 
   socket.on('createMessage',(message,callback) => {   // This is to recieve the message from the client ...//the callback argument is the function called in the socket.emit in the index.js
     io.emit('newMessage',generateMessage(message.from,message.text));
 
-    callback('From the ADMIN'); //Here the callback function get called for which it got the message
+    callback(); //Here the callback function get called for which it got the message
   });
 
   socket.on('geolocation',(coords) => {

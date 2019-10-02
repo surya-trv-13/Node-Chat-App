@@ -2,17 +2,27 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <link rel="stylesheet" href="/css/style.css"></link>
   </head>
-  <body>
-    <h2>WELCOME TO TRV-13 CHAT APP</h2>
+  <body class="chat">
 
-    <ol id="message"></ol>
+    <div class="chat__sidebar">
+      <h3>People</h3>
+      <div class="user"></div>
+    </div>
 
-    <form id='message-form'>
-      <input type="text" name="message" placeholder="Write Message Here"/>
-      <button>SEND</button>
-    </form>
-    <button id="locationButton">Send Location</button>
+    <div class="chat__main">
+      <div class="chat__messages">
+        <ol id="message"></ol>
+      </div>
+      <div class="chat__footer">
+        <form id='message-form'>
+          <input type="text" name="message" placeholder="Write Message Here" autofocus autocomplete="off"/>
+          <button>SEND</button>
+        </form>
+        <button id="locationButton">Send Location</button>
+      </div>
+    </div>
 
     <script src="/js/libs/jquery-3.4.1.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>
