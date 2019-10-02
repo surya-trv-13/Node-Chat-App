@@ -1,5 +1,22 @@
 var socket = io(); //This io() is present in the /socket.io/socket.io.js and used to open websocket connection for communication between client and server
 
+function autoScroll(){
+  var messages = jQuery('#messages');
+  var newMessage = messages.children('li:last-child');
+
+  var clientHeight = messages.prop('clientHeight');
+  var scrollTop = messages.prop('scrollTop');
+  var scrollHeight = messages.prop('scrollHeight');
+  var newMessageHeight = newMessage.innerHeight();
+  var lastMessageHeight = newMessage.prev().innerHeight();
+
+  console.log(`${clientHeight} ${scrollTop} ${scrollHeight} ${newMessageHeight} ${lastMessageHeight}`);
+  if(scrollTop + clientHeight + newMessageHeight + lastMessageHeight >= scrollHeight){
+    console.log("scroll to Bottom");
+    messages.scrollTop(scrollHeight);
+  }
+}
+
 socket.on('connect',function()  {       // This is to do the stuff when event occur in client side ... (notice here event is connect rather than connection in server.js)
   console.log('Connected to server!');  // We are using regular function instead of arrow function as it will not run in phone or other browser than chrome
 });
@@ -22,6 +39,7 @@ socket.on('newMessage',function(newM) { // This is for listening event emitted f
     });
 
     jQuery('#messages').append(html);
+    autoScroll();
 });
 
 /****************Fetching the Location Message from the Server*******************************************************/
@@ -36,6 +54,7 @@ socket.on('newLocationMessage',function(newLocationM) {
   });
 
   jQuery('#messages').append(html);
+  autoScroll();
 });
 
 /********************************************JQUERY***********************************************/

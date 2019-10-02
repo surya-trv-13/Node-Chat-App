@@ -82,7 +82,7 @@ button:disabled{
 	background:-webkit-linear-gradient(125deg,rgba(39,107,130,1) 0,rgba(49,84,129,1) 100%);
 	background:-o-linear-gradient(125deg,rgba(39,107,130,1) 0,rgba(49,84,129,1) 100%);
 	background:-ms-linear-gradient(125deg,rgba(39,107,130,1) 0,rgba(49,84,129,1) 100%);
-	background:linear-gradient(325deg,rgba(39,107,130,1) 0,rgba(49,84,129,1) 100%) */
+	background:linear-gradient(325deg,rgba(39,107,130,1) 0,rgba(49,84,129,1) 100%)*/
 }
 .chat__footer,.chat__sidebar li{
 	background:#e6eaee;
@@ -106,9 +106,9 @@ button:disabled{
 }
 .chat__messages{
 	flex-grow:1;
-	/* overflow-y:scroll; */
+	overflow-y : scroll;
 	-webkit-overflow-scrolling:touch;
-	padding:10px
+	padding:10px;
 }
 .chat__footer{
 	display:flex;
