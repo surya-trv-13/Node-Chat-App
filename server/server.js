@@ -4,6 +4,7 @@ const http = require('http'); //This is to create http server
 const express = require('express');
 
 const {generateMessage,generateLocationMessage} = require('./utils/message');
+const {isRealString} = require('./utils/validation');
 const pathPublic = path.join(__dirname , '../public'); // This will reduce the file path of ../ with the original path...
 const port = process.env.PORT || 1200;
 const app = express();
@@ -13,18 +14,20 @@ var io = socketIO(server);
 io.on('connection',(socket) => {            // This is a built in event listner it will execute when the said event happens then this method calls
   console.log('New User Connected');
 
-
-  // socket.emit('newMessage',{    //This is the custom emit an event from server and send it to the client...
-  //   text : 'Not so far',         // This isthe data which we pass along with the event
-  //   createdAt : 123,
-  //   from : 'SuryaTRV'
-  // });
   /**************************************************************************/
-  //This is for the welcome message to the user...
-  socket.emit('newMessage',generateMessage('ADMIN','Welcome to Chat App'));
+  socket.on('join',(params,callback) => {
+    if(!isRealString(params.name) || !isRealString(params.room)){
+      callback('Name or room is empty');
+    }
+    socket.join(params.room);
 
-  //This is for the notifiction to other user of joining of other member in the group
-  socket.broadcast.emit('newMessage',generateMessage('ADMIN','New User Joined'));
+    //This is for the welcome message to the user...
+    socket.emit('newMessage',generateMessage('ADMIN','Welcome to Chat App'));
+
+    //This is for the notifiction to other user of joining of other member in the group
+    socket.broadcast.to(params.room).emit('newMessage',generateMessage('ADMIN',`${params.name} has Joined`));
+    callback();
+  });
 
 
   socket.on('createMessage',(message,callback) => {   // This is to recieve the message from the client ...//the callback argument is the function called in the socket.emit in the index.js
@@ -48,3 +51,24 @@ app.use(express.static(pathPublic));
 server.listen(port,() => {
   console.log(`Server Started on ${port}`);
 });
+
+
+
+/**************************************Example*******************************************************/
+// socket.emit('newMessage',{    //This is the custom emit an event from server and send it to the client...
+//   text : 'Not so far',         // This isthe data which we pass along with the event
+//   createdAt : 123,
+//   from : 'SuryaTRV'
+// });
+
+
+/*------------Socket.IO Rooms----------------*/
+//Socket.join('Room Name');  // This is the in-built method of socket which helps in sending or recieving data only from that room only OR This joins you in that given Room
+//Socket.leave('Room Name'); // This is in-built method of socket which helps a member to leave a given room ...
+
+//Similar to the join there is a method called to('Room Name') which helps in sending the data/messages to the room the user allocated
+/*
+* io.emit --> io.to('Room Name').emit
+* socket.broadcast.emit --> socket.broadcast.to('Room Name').emit
+* socket.emit is as it is
+*/
