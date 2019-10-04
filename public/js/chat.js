@@ -12,7 +12,6 @@ function autoScroll(){
 
   console.log(`${clientHeight} ${scrollTop} ${scrollHeight} ${newMessageHeight} ${lastMessageHeight}`);
   if(scrollTop + clientHeight + newMessageHeight + lastMessageHeight >= scrollHeight){
-    console.log("scroll to Bottom");
     messages.scrollTop(scrollHeight);
   }
 }
@@ -29,6 +28,16 @@ socket.on('connect',function()  {       // This is to do the stuff when event oc
       console.log('No Error');
     }
   });
+});
+
+socket.on('updateUserList', function(user) {
+  var ul = jQuery('<ul></ul>');
+
+  user.forEach(function(u) {
+    ul.append(jQuery('<li></li>').text(u));
+  })
+
+  jQuery('#users').html(ul);
 });
 
 socket.on('disconnect',function()  {    // this is for the disconnect event to happen from the serevr this event listener will get caleed in the client side...

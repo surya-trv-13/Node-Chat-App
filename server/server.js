@@ -5,28 +5,29 @@ const express = require('express');
 
 const {generateMessage,generateLocationMessage} = require('./utils/message');
 const {isRealString} = require('./utils/validation');
+const {User} = require('./utils/users');
+
 const pathPublic = path.join(__dirname , '../public'); // This will reduce the file path of ../ with the original path...
 const port = process.env.PORT || 1200;
 const app = express();
 var server = http.createServer(app); // This create a http server initially it was creating server in listen(...) method
 var io = socketIO(server);
+var users = new User();
 
 io.on('connection',(socket) => {            // This is a built in event listner it will execute when the said event happens then this method calls
-  console.log('New User Connected');
 
-  /**************************************************************************/
   socket.on('join',(params,callback) => {
     if(!isRealString(params.name) || !isRealString(params.room)){
-      callback('Name or room is empty');
-    }
-    socket.join(params.room);
+    callback('Name or room is empty');
+  }
+  socket.join(params.room);
+  users.removeUser(socket.id);                      //Remove the user from any other room initially present...
+  users.addUser(socket.id , params.name , params.room);
 
-    //This is for the welcome message to the user...
-    socket.emit('newMessage',generateMessage('ADMIN','Welcome to Chat App'));
-
-    //This is for the notifiction to other user of joining of other member in the group
-    socket.broadcast.to(params.room).emit('newMessage',generateMessage('ADMIN',`${params.name} has Joined`));
-    callback();
+  io.to(params.room).emit('updateUserList',users.getUserList(params.room));     //  Update the list after each user joins
+  socket.emit('newMessage',generateMessage('ADMIN','Welcome to Chat App'));     //  Welcome message to the user who joins
+  socket.broadcast.to(params.room).emit('newMessage',generateMessage('ADMIN',`${params.name} has Joined`)); //  Notification to other members in the room
+  callback();
   });
 
 
@@ -41,7 +42,12 @@ io.on('connection',(socket) => {            // This is a built in event listner 
   });
 
   socket.on('disconnect',() => {
-    console.log('Disconnected User'); // To print the message/or any stuff to execute in the server side after a disconnetion happens in the connection of a user...
+    var user = users.removeUser(socket.id);
+
+    if(user){
+      io.to(user.room).emit('updateUserList',users.getUserList(user.room));
+      io.to(user.room).emit('newMessage',generateMessage('ADMIN', `${user.name} left the room`))
+    }
   });
 });
 
