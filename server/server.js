@@ -45,7 +45,8 @@ io.on('connection',(socket) => {            // This is a built in event listner 
     var user = users.getUser(socket.id);
 
     if(user){
-      io.to(user.room).emit('newLocationMessage',generateLocationMessage(user.name , coords.latitude , coords.longitude));
+      socket.emit('newOwnLocationMessage',generateLocationMessage(user.name , coords.latitude , coords.longitude)); //Change 4
+      socket.broadcast.to(user.room).emit('newLocationMessage',generateLocationMessage(user.name , coords.latitude , coords.longitude));
     }
   });
 

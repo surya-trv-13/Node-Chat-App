@@ -26,7 +26,7 @@
     </div>
 
     <script id="message-text" type="text/template">
-      <li class="message">
+      <div class="message">
         <div class="message__title">
           <h4>{{from}}</h4>
           <span>{{createdAt}}</span>
@@ -34,11 +34,12 @@
         <div class="message__body">
           <p>{{text}}</p>
         </div>
-      </li>
+      </div>
     </script>
 
+    <!-- Change 3 -->
     <script id="message-own-text" type="text/template">
-      <li class="message-own">
+      <div class="message-own">
         <div class="message__title">
           <h4>{{from}}</h4>
           <span>{{createdAt}}</span>
@@ -46,7 +47,7 @@
         <div class="message__body">
           <p>{{text}}</p>
         </div>
-      </li>
+      </div>
     </script>
 
     <script id="message-location-text" type="text/template">
@@ -59,6 +60,19 @@
           <a href="{{url}}" target="_blank">My Location</a>
         </div>
       </li>
+    </script>
+
+    <!-- Change 6 -->
+    <script id="message-own-location-text" type="text/template">
+      <div class="message-own">
+        <div class="message__title">
+          <h4>{{from}}</h4>
+          <span>{{createdAt}}</span>
+        </div>
+        <div class="message__body">
+          <a href="{{url}}" target="_blank">My Location</a>
+        </div>
+      </div>
     </script>
 
     <script src="/js/libs/jquery-3.4.1.min.js"></script>
