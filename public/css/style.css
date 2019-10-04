@@ -127,7 +127,7 @@ button:disabled{
 	background-color: pink;
 	border-radius:5px;
 	margin:10px;
-	margin-right: 350px;
+	margin-right: 40%;
 }
 .message-own{
 	padding:10px;
@@ -135,7 +135,7 @@ button:disabled{
 	background-color: lightgreen;
 	border-radius:5px;
 	margin:10px;
-	margin-left: 350px;
+	margin-left: 40%;
 }
 .message__title{
 	display:flex;
