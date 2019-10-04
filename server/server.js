@@ -32,13 +32,20 @@ io.on('connection',(socket) => {            // This is a built in event listner 
 
 
   socket.on('createMessage',(message,callback) => {   // This is to recieve the message from the client ...//the callback argument is the function called in the socket.emit in the index.js
-    io.emit('newMessage',generateMessage(message.from,message.text));
+    var user = users.getUser(socket.id);
 
+    if(user && isRealString(message.text)){
+        io.to(user.room).emit('newMessage',generateMessage(user.name,message.text));
+    }
     callback(); //Here the callback function get called for which it got the message
   });
 
   socket.on('geolocation',(coords) => {
-    io.emit('newLocationMessage',generateLocationMessage('Admin',coords.latitude,coords.longitude));
+    var user = users.getUser(socket.id);
+
+    if(user){
+      io.to(user.room).emit('newLocationMessage',generateLocationMessage(user.name , coords.latitude , coords.longitude));
+    }
   });
 
   socket.on('disconnect',() => {
