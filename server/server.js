@@ -18,7 +18,7 @@ io.on('connection',(socket) => {            // This is a built in event listner 
 
   socket.on('join',(params,callback) => {
     if(!isRealString(params.name) || !isRealString(params.room)){
-    callback('Name or room is empty');
+    return callback('Name or room is empty');
   }
   socket.join(params.room);
   users.removeUser(socket.id);                      //Remove the user from any other room initially present...

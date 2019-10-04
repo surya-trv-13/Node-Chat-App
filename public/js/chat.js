@@ -10,7 +10,6 @@ function autoScroll(){
   var newMessageHeight = newMessage.innerHeight();
   var lastMessageHeight = newMessage.prev().innerHeight();
 
-  console.log(`${clientHeight} ${scrollTop} ${scrollHeight} ${newMessageHeight} ${lastMessageHeight}`);
   if(scrollTop + clientHeight + newMessageHeight + lastMessageHeight >= scrollHeight){
     messages.scrollTop(scrollHeight);
   }
@@ -24,8 +23,6 @@ socket.on('connect',function()  {       // This is to do the stuff when event oc
     if(err){
       alert(err);
       window.location.href = '/';
-    }else{
-      console.log('No Error');
     }
   });
 });
