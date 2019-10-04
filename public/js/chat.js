@@ -58,6 +58,20 @@ socket.on('newMessage',function(newM) { // This is for listening event emitted f
     autoScroll();
 });
 
+socket.on('newOwnMessage',function(newM) {
+  var formatedTime = moment(newM.createdAt).format('h:mm a');
+
+  var template = jQuery('#message-own-text').html();
+  var html = Mustache.render(template,{
+    text : newM.text,
+    from : newM.from,
+    createdAt : formatedTime
+  });
+
+  jQuery('#messages').append(html);
+  autoScroll();
+});
+
 /****************Fetching the Location Message from the Server*******************************************************/
 socket.on('newLocationMessage',function(newLocationM) {
   var formatedTime = moment(newLocationM.createdAt).format('h:mm a');

@@ -123,10 +123,19 @@ button:disabled{
 }
 .message{
 	padding:10px;
-	border:1px solid pink;
+	border:1px solid red;
 	background-color: pink;
 	border-radius:5px;
-	margin:10px
+	margin:10px;
+	margin-right: 350px;
+}
+.message-own{
+	padding:10px;
+	border:1px solid green;
+	background-color: lightgreen;
+	border-radius:5px;
+	margin:10px;
+	margin-left: 350px;
 }
 .message__title{
 	display:flex;

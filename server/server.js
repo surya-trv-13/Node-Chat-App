@@ -35,7 +35,8 @@ io.on('connection',(socket) => {            // This is a built in event listner 
     var user = users.getUser(socket.id);
 
     if(user && isRealString(message.text)){
-        io.to(user.room).emit('newMessage',generateMessage(user.name,message.text));
+        socket.emit('newOwnMessage',generateMessage(user.name,message.text)); //Change 1
+        socket.broadcast.to(user.room).emit('newMessage',generateMessage(user.name,message.text));
     }
     callback(); //Here the callback function get called for which it got the message
   });
