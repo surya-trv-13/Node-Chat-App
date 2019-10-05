@@ -64,5 +64,5 @@ http://localhost:1200/
 
 See the list of contributors of the project [here](https://github.com/surya-trv-13/Node-Chat-App/graphs/contributors).
 
-# Acknowledgemnet
+# Acknowledgement
 I would like to thank [Andrew J Mead](https://github.com/andrewjmead) for providing guidance to making the initial build of the project.
