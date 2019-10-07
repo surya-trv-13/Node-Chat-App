@@ -18,17 +18,24 @@ li,ul{
 	list-style-position:inside
 }
 h3{
+	font-family : Comic Sans MS;
+	color: chocolate;
+	text-shadow: 3px 1px 5px cadetblue;
 	font-weight:600;
 	text-align:center;
-	font-size:1.5rem
+	font-size:2rem;
 }
 button{
-	background:#265f82;
+	background: lightcoral;
 	cursor:pointer;
-	transition:background .3s ease
+	transition:background .5s linear;
+
 }
 button:hover{
-	background:#1F4C69
+	background:#ffffff;
+	color: lightcoral;
+	border:1px solid lightcoral;
+	transition:background .6s ease;
 }
 button:disabled{
 	cursor:default;
@@ -40,35 +47,76 @@ button:disabled{
 	height:100vh;
 	width:100vw;
 	justify-content:center;
-	background:-moz-linear-gradient(125deg,rgba(39,107,130,1) 0,rgba(49,84,129,1) 100%);
-	background:-webkit-gradient(linear,left top,right bottom,color-stop(0,rgba(49,84,129,1)),color-stop(100%,rgba(39,107,130,1)));
-	background:-webkit-linear-gradient(125deg,rgba(39,107,130,1) 0,rgba(49,84,129,1) 100%);
-	background:-o-linear-gradient(125deg,rgba(39,107,130,1) 0,rgba(49,84,129,1) 100%);
-	background:-ms-linear-gradient(125deg,rgba(39,107,130,1) 0,rgba(49,84,129,1) 100%);
-	background:linear-gradient(325deg,rgba(39,107,130,1) 0,rgba(49,84,129,1) 100%)
+	
+	/*-webkit-animation-name: example; /* Safari 4.0 - 8.0 */
+	/*-webkit-animation-duration: 4s;  Safari 4.0 - 8.0 */
+/*
+	animation-name: example;
+	animation-duration: 15s;
+    animation-iteration-count: infinite;
+*/
 }
+
+@-webkit-keyframes example {
+  0%   {background-color: red;}
+  25%  {background-color: yellow;}
+  50%  {background-color: blue;}
+  75% {background-color: green;}
+  100%   {background-color: red;}
+}
+
+/* Standard syntax */
+@keyframes example {
+  0%   {background-color: red;}
+  25%  {background-color: yellow;}
+  50%  {background-color: blue;}
+  75% {background-color: green;}
+  100%   {background-color: red;}
+}
+
+
 .centered-form__form{
-	background:rgba(250,250,250,.9);
+	background:rgba(255,255,255,1);
 	border:1px solid #e1e1e1;
 	border-radius:5px;
 	padding:0 20px;
 	margin:20px;
-	width:280px
+	width:350px;
+	
+	-webkit-animation-name: shadowAnimation; /* Safari 4.0 - 8.0 */
+	-webkit-animation-duration: 4s; /* Safari 4.0 - 8.0 */
+	animation-name: shadowAnimation;
+	animation-duration: 15s;
+    animation-iteration-count: infinite;
 }
+
+@keyframes shadowAnimation {
+  0%   {box-shadow: 12px 10px 20px lightgray;}
+  25%   {box-shadow: 16px 14px 20px pink;}
+  50%   {box-shadow: 18px 16px 20px goldenrod;}
+  75%   {box-shadow: 20px 18px 20px lightblue;}
+  100%   {box-shadow: 14px 12px 20px yellow;}
+  }
+
 .form-field{
 	margin:20px 0
 }
 .form-field>*{
-	width:100%
+	width:100%;
 }
 .form-field label{
 	display:block;
 	margin-bottom:7px
 }
 .form-field input,.form-field select{
-	border:1px solid #e1e1e1;
-	padding:10px
+	border-bottom: 1px solid coral;
+	border-left: none;
+	border-top: none;
+	border-right: none;
+	padding:15px;
+	outline-color: white;
 }
+
 .chat{
 	display:flex;
 }
@@ -76,7 +124,7 @@ button:disabled{
 	overflow-y:scroll;
 	width:30%;
 	height:100vh;
-  background-color: cadetblue;
+  background-color : cadetblue;
   background-position: left;
 }
 .chat__footer,.chat__sidebar li{
